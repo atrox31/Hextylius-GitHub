@@ -1,0 +1,7 @@
+Hextylius 0.2
+#ADMIN PANEL
+	- możliwe dodanie obrazka do newsa
+	- domyślnym obrazkiem jest logo serwisu z którego pochodzi news
+#STRONA
+	- naprawiono literówkę serweru minecraft
+	- po kliknięciu na news w galerii przenosi do odpowiedniej strony

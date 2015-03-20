@@ -1,0 +1,11 @@
+
+.date{
+    float: right;
+    font-size: 10px;
+    color: #121212;
+}
+
+.image_to_hover{
+    width: 80%;
+    height: 80%;
+}
