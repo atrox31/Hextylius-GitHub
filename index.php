@@ -39,7 +39,6 @@
 
 	<link rel='stylesheet' href='css/main.css' type='text/css' />
 	<link rel='stylesheet' href='css/alpha.css' type='text/css' />
-	<link rel='stylesheet' href='css/coin-slider-styles.css' type='text/css' />
 </head>
 <body>
 	<div id='strona'>
