@@ -116,23 +116,6 @@
 		}
 	}	
 
-	function to_time($czas){
-		$str = "";
-		$s = 0;
-		$m = 0;
-		$h = 0;
-
-		while ($czas>=3600) { $h++; $czas-=3600; }; 
-		while ($czas>=60) { $m++; $czas-=60; }; 
-		$s = $czas;
-		if ($h>0) { if ($h<10) $str = $str.'0'; $str = $str.$h; }else{ $str = $str."00"; }
-		$str = $str.':';
-		if ($m>0) { if ($m<10) $str = $str.'0'; $str = $str.$m; }else{ $str = $str."00"; }
-		$str = $str.':';
-		if ($s>0) { if ($s<10) $str = $str.'0'; $str = $str.$s; }else{ $str = $str."00"; }
-		return $str;
-	}
-
 	function array_last_key( &$array ){
 		end($array);
 		return key($array);  
