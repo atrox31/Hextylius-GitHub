@@ -5,7 +5,7 @@
 	* cały silnik podstawowych komend do War Plans
 	******************************************************/
 		// WSZTSTKIE STAŁE WYKOŻYSTANE W GRZE
-		if ((strpos($_SERVER['HTTP_HOST'], '192.168') !== FALSE)||($_SERVER['HTTP_HOST'] == 'localhost')){ // jeżeli serwer jest w domku to dawaj te pasy, inaczej internetowe
+		if ((strpos($_SERVER['HTTP_HOST'], '192.168') !== FALSE)||(strpos($_SERVER['HTTP_HOST'], 'localhost') !== FALSE)){ // jeżeli serwer jest w domku to dawaj te pasy, inaczej internetowe
 			define("GLOBAL_BASE_HREF", "localhost", true);
 			define("GLOBAL_BASE_USER", "root", true);
 			define("GLOBAL_BASE_PASS", "zaq1@WSX", true);
