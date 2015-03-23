@@ -29,7 +29,7 @@
 
 			if($wynik) {
 				if($DEBUG)
-					DEBUG::debug_to_console("mysql_question: " .str_replace("'", "\'", $wynik));
+					DEBUG::debug_to_console("mysql_question: " . str_replace("'", "\'", $wynik));
 				return $wynik;
 			} else {
 				if($DEBUG)
