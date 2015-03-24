@@ -38,8 +38,9 @@
 				$this -> error .= "<li>Zły e-mail!</li>";
 			}
 
-			if($this -> error <> "") {
+			if($this -> error == "") {
 				$this -> register();
+				header("location: " . $GLOBALS['SUBDOMEN'] . ".index.php?ekran=register_complite");
 			} else {
 				echo "<span class='error'><ul>{$this -> error}</ul></span>";
 			}
@@ -57,8 +58,8 @@
 		// Łączy się z bazą danych i tworzy dane użytkownika
 		private function register() {
 
-			$fields = "login, password";
-			$values = "'" . (string)$this -> username . "', '" . (string)$this -> password . "'";
+			$fields = "nick, pass, kind";
+			$values = "'" . (string)$this -> username . "', '" . (string)$this -> password . "', '" . $GLOBALS['SUBDOMEN'] . "'";
 
 			$db = new db("fassh114_1");
 			$db -> insert_data("users", $fields, $values, true);
