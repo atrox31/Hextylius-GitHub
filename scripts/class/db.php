@@ -65,17 +65,17 @@
 		public function update_data($baza, $wartosc, $warunek, $DEBUG = false) {
 			if(!$this -> READ_ONLY)
 				$this -> mysql_question("UPDATE " . $baza . " SET " . $wartosc . " WHERE $warunek;", $DEBUG);
-		}		
+		}
 
 		public function insert_data($baza, $pole, $wartosc, $DEBUG = false) {	
 			if(!$this -> READ_ONLY)
 				$this -> mysql_question("INSERT INTO " . $baza . " (" . $pole . ") VALUES (" . $wartosc . ")", $DEBUG);
-		}		
+		}
 
 		public function delete_data($baza, $warunek, $DEBUG = false) {
 			if(!$this -> READ_ONLY)	
 				$this -> mysql_question("DELETE FROM $baza WHERE $warunek ;", $DEBUG);
-		}		
+		}
 
 		public function get_data($baza, $pole, $assoc = true, $warunek = null, $DEBUG = false) {
 			if ($warunek == null) {
