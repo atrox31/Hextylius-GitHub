@@ -57,7 +57,7 @@
 		// Łączy się z bazą danych i tworzy dane użytkownika
 		private function register() {
 			$fields = "login, password";
-			$values = (string)$this -> username . ", " . (string)$this -> password;
+			$values = "'" . (string)$this -> username . "', '" . (string)$this -> password . "'";
 
 			$db = new db("fassh114_1");
 			$db -> insert_data("users", $fields, $values, true);
