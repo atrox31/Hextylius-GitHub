@@ -38,7 +38,7 @@
 				$this -> error .= "<li>Zły e-mail!</li>";
 			}
 
-			if($error <> "") {
+			if($this -> error <> "") {
 				$this -> register();
 			} else {
 				echo "<span class='error'><ul>{$this -> error}</ul></span>";
@@ -56,6 +56,7 @@
 
 		// Łączy się z bazą danych i tworzy dane użytkownika
 		private function register() {
+
 			$fields = "login, password";
 			$values = "'" . (string)$this -> username . "', '" . (string)$this -> password . "'";
 
