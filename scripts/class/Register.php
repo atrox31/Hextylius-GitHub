@@ -1,9 +1,8 @@
  <?php
 	/*
 		Nazwa: Register
-		Autor: Mariusz Woelkl
-		Opis: Klasa używany do rejestracji nowych użytkowników. Najpierw sprawdza, pod warunkiem, dane i jeśli przejdzie następnie
-			Całość dane są przesyłane do bazy danych
+		Autor: Mariusz Woelk
+		Opis: Klase używamy do rejestracji nowych użytkowników. Sprawdza dane pod względem poprawności, a następnie zapisuje do bazy danych.
 	*/
 
 	Class Register
@@ -11,6 +10,8 @@
 		// Warunki do spełnienia
 		private static $CONDITION_MIN = 5; // Minimalna długość tekstu
   		private static $CONDITION_MAX = 32; // Maksymalna długość tekstu
+  		private static $BASEDATA = "fassh114_1"; // Nazwa bazy danych
+  		private static $BASE = "users"; // Nazwa tablicy z bazy danych
 
 		private $username, $password, $email;
 		private $error = ""; // Wiadomość błędu, wypisywana po pierwszym napotkanym błędzie
@@ -38,6 +39,10 @@
 				$this -> error .= "<li>Zły e-mail!</li>";
 			}
 
+			if($this -> isExist()) {
+				$this -> error .= "<li>Użytkownik już istnieje!</li>";
+			}
+
 			if($this -> error == "") {
 				$this -> register();
 				header("location: " . $GLOBALS['SUBDOMEN'] . ".index.php?ekran=register_complite");
@@ -55,14 +60,25 @@
 			}
 		}
 
+		private function isExist() {
+			$fields = "nick";
+
+			$db = new db(self::$BASEDATA);
+			$users = $db -> get_data(self::$BASE, $fields, true, "EXISTS (SELECT * FROM " . self::$BASE . " WHERE " . self::$BASE . ".nick = '" . (string)$this -> username . "')");
+
+			if($users)
+				return true;
+			else
+				return false;
+		}
+
 		// Łączy się z bazą danych i tworzy dane użytkownika
 		private function register() {
-
 			$fields = "nick, pass, kind";
 			$values = "'" . (string)$this -> username . "', '" . (string)$this -> password . "', '" . $GLOBALS['SUBDOMEN'] . "'";
 
-			$db = new db("fassh114_1");
-			$db -> insert_data("users", $fields, $values, true);
+			$db = new db(self::$BASEDATA);
+			$db -> insert_data(self::$BASE, $fields, $values, true);
 		}
 	}
 ?>
