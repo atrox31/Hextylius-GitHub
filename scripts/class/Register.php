@@ -53,18 +53,14 @@
 
 		// Sprawdza czy długość tekstu odpowiada założonemu w CONDITION_MIN
 		private function check($data) {
-			if(strlen($data) >= self::$CONDITION_MIN) {
-				return true;
-			} else {
-				return false;
-			}
+			return (strlen($data) >= self::$CONDITION_MIN);
 		}
 
 		private function isExist() {
 			$fields = "nick";
 
 			$db = new db(self::$BASEDATA);
-			$users = $db -> get_data(self::$BASE, $fields, true, "EXISTS (SELECT * FROM " . self::$BASE . " WHERE " . self::$BASE . ".nick = '" . (string)$this -> username . "')");
+			$users = $db -> get_data(self::$BASE, $fields, true, "`nick` = '" . (string)$this -> username . "'");
 
 			if($users)
 				return true;
