@@ -4,6 +4,8 @@
 		private $con;
 		private $READ_ONLY = false;
         private $BASE;
+
+        private $ERROR_REPORT = true;
 		
 		function __construct( $_BASE ) {
 			$this -> con = mysql_connect(GLOBAL_BASE_HREF, GLOBAL_BASE_USER, GLOBAL_BASE_PASS)
@@ -23,18 +25,17 @@
 
 		private function mysql_question($tresc, $DEBUG)	{
 			//$DEBUG = true;
-			if($DEBUG) DEBUG::debug_to_console("mysql_question: " . str_replace("'", "\'", $tresc));
-			
-			$wynik = mysql_query($tresc);
-
-			if($wynik) {
-				if($DEBUG)
-					DEBUG::debug_to_console("mysql_question: " . str_replace("'", "\'", $wynik));
-				return $wynik;
-			} else {
-				if($DEBUG)
-					DEBUG::debug_to_console("Error: " . str_replace("'", "\'", mysql_error()));
-				return false;
+			if($DEBUG) DEBUG::debug_to_console("mysql_question: ".str_replace("'","\'",$tresc));
+			$wynik=mysql_query($tresc);
+			if ($wynik){
+				if($DEBUG) DEBUG::debug_to_console("mysql_question: ".str_replace("'","\'",$wynik));
+				return $wynik;	
+			}else{
+				if($DEBUG || $this->ERROR_REPORT) {
+					DEBUG::debug_to_console("mysql_question: ".str_replace("'","\'",$tresc));
+					DEBUG::debug_to_console("Error: " . str_replace("'","\'",mysql_error()));
+				}
+				return false;	
 			}
 		}
 
@@ -56,7 +57,7 @@
 			
 			if($wynik) {
 				$wynik = mysql_fetch_assoc($wynik);
-				return $wynik[$pole];
+				return $_wynik["COUNT(" . $pole . ")"];
 			} else {
 				return 0;
 			}
