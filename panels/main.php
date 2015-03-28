@@ -18,7 +18,7 @@
                         echo "<div style='margin:auto; text-align: center;'>";
                             echo "<input type='button' value='Strona Główna' onClick='document.location = \"{$SUBDOMEN}.index.php?ekran=news\";' style='margin:auto 2% ;' />";
                             echo "<input type='button' value='Ranking'  style='margin:auto 2% ;' />";
-                            echo "<input type='button' value='Forum'  style='margin:auto 2% ;' />";
+                            echo "<input type='button' value='Forum' onClick='document.location = \"{$SUBDOMEN}.index.php?ekran=forum\";' style='margin:auto 2% ;' />";
                             echo "<input type='button' value='Pobieranie'  style='margin:auto 2% ;' />";
                         echo "</div>";
                     echo "</td>";
