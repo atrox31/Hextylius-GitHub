@@ -6,12 +6,18 @@
  * OSTATNIA AKTUALIZACJA: 19-02-2015
  */
 	if($_SESSION['login']){
-		echo "Witaj Atrox.";
+		echo "Witaj Atrox.
+			<br />
+			<input type='button' value='Wyloguj' onClick=\"post('" . this_url() . "', {wylogowanie: 'wylogowanie'})\"";
 	}else{
 			if ( (isset($_POST["username_"])) && (isset($_POST["password_"])) ) { // jezeli otrzyma dane do logowania
+
 			//TYMCZASOWO
 			$_SESSION['login'] = true;
 			$_SESSION['user_id'] = 1;
+			$_SESSION['user_rank'] = 2;
+			page_refresh();
+
 		} else { // jezeli nie ma danych do logowania
 			echo "<center><div id='panel_logowania'>"
 				."<form action='{$GLOBALS['SUBDOMEN']}.index.php?ekran=news' method='post'>"
@@ -19,7 +25,7 @@
 				."Hasło: <input type='password' name='password_' class='input'></br>"
 				."<input type='submit' value='Zaloguj' class='input' id='guzik'>"
 				."</form>";
-			echo "Nie masz konta? <a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=register', {register: 'register'})\">Zarejestruj się!</a><br /><a onClick=\"post('metin2.index.php?ekran=recorvery', {recorvery: 'recorvery'})\">Przypomnienie hasła</a>";
+			echo "Nie masz konta? <a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=register', {register: 'register'})\">Zarejestruj się!</a><br /><a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=recorvery', {recorvery: 'recorvery'})\">Przypomnienie hasła</a>";
 		}
 	    
 	    if ( isset($_GET['error']) ) { 

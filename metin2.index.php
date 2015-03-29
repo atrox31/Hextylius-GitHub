@@ -38,9 +38,13 @@
     }
 ?>
 
-    <link rel="shortcut icon" href="grafika/metin2.png" />
-    <link rel='stylesheet' href='css/main.css' type='text/css' />
-    <link rel='stylesheet' href='css/metin2.css' type='text/css' />
+
+<link rel='stylesheet' href='css/alpha.css' type='text/css' />
+<link rel='stylesheet' href='css/main.css' type='text/css' />
+<link rel='stylesheet' href='css/metin2.css' type='text/css' />
+<link rel='stylesheet' href='css/forum.css' type='text/css' />
+<link rel="shortcut icon" href="grafika/metin2.png" />
+
 </head>
 <body>
     <div id='strona'>

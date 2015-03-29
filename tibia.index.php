@@ -37,8 +37,12 @@
         }
     ?>
 
-    <link rel='stylesheet' href='css/main.css' type='text/css' />
-    <link rel='stylesheet' href='css/alpha.css' type='text/css' />
+
+<link rel='stylesheet' href='css/alpha.css' type='text/css' />
+<link rel='stylesheet' href='css/main.css' type='text/css' />
+<link rel='stylesheet' href='css/tibia.css' type='text/css' />
+<link rel='stylesheet' href='css/forum.css' type='text/css' />
+
 </head>
 <body>
     <div id='strona'>

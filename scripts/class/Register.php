@@ -62,10 +62,7 @@
 			$db = new db(self::$BASEDATA);
 			$users = $db -> get_data(self::$BASE, $fields, true, "`nick` = '" . (string)$this -> username . "'");
 
-			if($users)
-				return true;
-			else
-				return false;
+			return $users;
 		}
 
 		// Łączy się z bazą danych i tworzy dane użytkownika

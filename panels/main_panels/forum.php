@@ -3,11 +3,9 @@
     1. pobiera kategorie z bazu forum_categories
     2. pobiera najnowsze tematy z każdej kategori (max 8 - domyślnie)
     3. Pozwala przekierować na 
-*/
-if($_SESSION['login']){
+*/                                                      
 
-    // limit wątków do wyświetlenia na wstępie
-    $LIMIT_THREAD = 8; 
+if($_SESSION['login']){
 
     $database = new db("fassh114_1");
 
@@ -15,51 +13,30 @@ if($_SESSION['login']){
     if(!isset($_GET['cat'])){
         $ALL_CATEOGRY = $database -> get_data("forum_category", "*", false);
 
-        while($CATEOGRY = mysql_fetch_array($ALL_CATEOGRY)){
+        while($CATEOGRY = mysql_fetch_assoc($ALL_CATEOGRY)){
             // dla każdej kategori
             echo "<div class='panel_content'>";
-                echo "<h2 onClick='document.location = \"{$SUBDOMEN}.index.php?ekran=forum&cat={$CATEOGRY['id']}\";'>{$CATEOGRY['name']}</h2>
+                echo "<h2 onClick='document.location = \"{$GLOBALS['SUBDOMEN']}.index.php?ekran=forum&cat={$CATEOGRY['id']}\";'>{$CATEOGRY['name']}</h2>
                     <hr />";
 
-                    $TO_DISPLAY = "";
-
-            // pobierz wszystkie aktualne wątki ( domyślnie 8)
-            $THREADS = $database -> get_data("forum_threads", "*", false, "`category` = '{$CATEOGRY['id']}' ORDER BY last_answer DESC LIMIT {$LIMIT_THREAD}");
-           
-                 while($THREAD = mysql_fetch_array($THREADS)){
-                    $AUTHOR = $database -> get_data("users", "*", true, "`id` = '{$THREAD['author']}'", true);
-
-                                $TO_DISPLAY .= "  <div style='panel_content'>
-                                            <table style='width: 100%'>
-                                                <tr>
-                                                    <td>
-                                                        {$AUTHOR['nick']}
-                                                    </td>
-                                                    <td style='text-align:right;'>
-                                                        <h3 onClick='document.location = \"{$SUBDOMEN}.index.php?ekran=forum&cat={$CATEOGRY['id']}&post={$THREAD['id']}\";' >{$THREAD['name']}</h3>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan='2' style='text-align:right;'>
-                                                    " . date("H:i", $THREAD['last_answer']) . "
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>";
-                            
-                }
-            if($TO_DISPLAY != ""){
-                echo $TO_DISPLAY;
-            }else{
-                echo "Brak wątków!";
-            }
+            FORUM::show_threads( $CATEOGRY['id'], 0, 5);
            
             echo "</div>";
         }
            
     }else{
-        // jeżeli wybrano kategorie pokaż listę wątków
-        $_GET['cat']
+        if(isset($_GET['post'])){
+            if(isset($_POST['text'])){
+                // jeżeli ktoś chce dodać wątek
+                $MESSAGE = nl2br(clear($_POST['text']));
+                $database -> insert_data("posts", "thread, author, time_add, content", "'{$_GET['post']}', '{$_SESSION['user_id']}', '" . time() . "', '{$MESSAGE}'", true);
+                header("location: " . this_url());
+            }
+            FORUM::show_post( $_GET['post'] );
+        }else{
+           // jeżeli wybrano kategorie pokaż listę wątków
+            FORUM::show_threads( $_GET['cat'], 0, 12); 
+        }  
     }
 }else{
     echo "Musisz się zalogować!";

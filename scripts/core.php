@@ -150,4 +150,25 @@
 	function js( $script ) {
 		echo "<script> $script </script>";
 	}
+
+	function this_url(){
+		$STR = basename($_SERVER['PHP_SELF']);
+		if(isset($_GET)){
+			$STR .= "?";
+			foreach ($_GET as $key => $value) {
+				$STR .= $key . "=" . $value;
+
+				if($key != array_last_key($_GET)){
+					$STR .= "&";
+				}
+
+			}
+		}
+		return $STR;
+	}
+
+	function page_refresh(){
+		header("location: " . this_url());
+	}
+
 ?> 
