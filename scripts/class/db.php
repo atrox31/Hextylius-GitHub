@@ -25,6 +25,9 @@
 
 		private function mysql_question($tresc, $DEBUG)	{
 			//$DEBUG = true;
+			$tresc = str_replace("\n","",$tresc);
+			$tresc= str_replace("\r","",$tresc);
+			
 			if($DEBUG) DEBUG::debug_to_console("mysql_question: ".str_replace("'","\'",$tresc));
 			$wynik=mysql_query($tresc);
 			if ($wynik){

@@ -32,15 +32,49 @@ class FORUM{
                 $POSTION++;           
             }
 
-            if(isset($_GET['cat']) && $_SESSION['user_rank'] >= 1){
-            	echo "<input type='button' value='Dodaj wątek' />";
-            }
-
+            
         if($TO_DISPLAY != ""){
             echo $TO_DISPLAY;
         }else{
             echo "Brak wątków!";
         }
+    }
+
+    public static function create_new_thread(){
+    	if($_POST['post'] == "add"){
+    		FORUM::draw_respond(true);
+    	}else{
+    		if($_POST['post'] != "" && $_POST['text'] != ""){
+	    		$THREAD_NAME = clear( $_POST['post'] );
+				$FIRST_CONTENT = clear( $_POST['text'] );
+				$CATEGORY = clear( $_GET['cat'] );
+
+	    		$database = new db("fassh114_1");
+
+	    		$CATEGORY_EXISTS = $database -> get_data( "forum_category", "*", true, "`id` = '{$CATEGORY}'", true);
+	    		if($CATEGORY_EXISTS){
+
+	    			$database -> insert_data("forum_threads", 
+	    				"`author`, `last_answer`, `open`, `name`, `category`",
+	    				"'{$_SESSION['user_id']}',	    				
+	    				 '" . time() . "',
+	    				 'true',
+	    				 '{$THREAD_NAME}',
+	    				 '{$CATEGORY}'
+	    				");
+	    			
+	    			$THREAD_ID = $database -> get_last_id();
+
+	    			$database -> insert_data("posts", "thread, author, time_add, content", "'{$THREAD_ID}', '{$_SESSION['user_id']}', '" . time() . "', '{$FIRST_CONTENT}'");
+
+	    			page_refresh();
+	    		}else{
+	    			echo "<span class='error'>Idź Pan w chuj z takim kombinowaniem...</span>";
+	    		}
+    		}else{
+    			echo "<span class='error'>Uzupełnij treść.</span>";
+    		}
+    	}
     }
 
     public static function show_post( $POST_ID, $LIMIT = 10){
@@ -95,12 +129,7 @@ class FORUM{
 
 			// odpowiedź
 			if($_GET['page'] == 1+floor(--$POST_NO / $LIMIT)){
-				echo "<div>
-					<form action='" . this_url() . "' method='post' >
-						<textarea rows='6' cols='50' name='text'></textarea><br />
-						<input type='submit' value='Wyslij'/> 
-					</form>
-				</div>";
+				FORUM::draw_respond();
 			}
 
 			echo "<div style='text-align:center; margin: auto'>";
@@ -119,6 +148,21 @@ class FORUM{
 		//}
 
 		
+    }
+
+    public static function draw_respond( $DRAW_HEDER = false ){
+    	echo "<div>
+					<form action='" . this_url() . "' method='post' >";
+
+    	if( $DRAW_HEDER ){
+    		echo "Temat wątku<br /><input type='text' name='post' /><br />";
+    	}
+
+    	echo "Treśc postu<br />
+						<textarea rows='6' cols='50' name='text'></textarea><br />
+						<input type='submit' value='Wyslij'/> 
+					</form>
+				</div>";
     }
 
 }
