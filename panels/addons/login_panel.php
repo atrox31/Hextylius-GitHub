@@ -15,7 +15,7 @@
 			//TYMCZASOWO
 			$_SESSION['login'] = true;
 			$_SESSION['user_id'] = 1;
-			$_SESSION['user_rank'] = 2;
+			$_SESSION['user_rank'] = 3;
 			page_refresh();
 
 		} else { // jezeli nie ma danych do logowania

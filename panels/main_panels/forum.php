@@ -11,6 +11,7 @@ if($_SESSION['login']){
 
     // generowanie kategori
     if(!isset($_GET['cat'])){
+
         $ALL_CATEOGRY = $database -> get_data("forum_category", "*", false);
 
         while($CATEOGRY = mysql_fetch_assoc($ALL_CATEOGRY)){
@@ -29,13 +30,37 @@ if($_SESSION['login']){
             if(isset($_POST['text'])){
                 // jeżeli ktoś chce dodać wątek
                 $MESSAGE = nl2br(clear($_POST['text']));
-                $database -> insert_data("posts", "thread, author, time_add, content", "'{$_GET['post']}', '{$_SESSION['user_id']}', '" . time() . "', '{$MESSAGE}'", true);
-                header("location: " . this_url());
+                $database -> insert_data("posts", "thread, author, time_add, content", "'{$_GET['post']}', '{$_SESSION['user_id']}', '" . time() . "', '{$MESSAGE}'");
+                page_refresh();
             }
             FORUM::show_post( $_GET['post'] );
         }else{
-           // jeżeli wybrano kategorie pokaż listę wątków
-            FORUM::show_threads( $_GET['cat'], 0, 12); 
+            // sprawdź czy jest polecenie dodania postu
+            if(isset($_POST['post']) ){
+                if($_SESSION['user_rank'] >= 3){
+
+                    // czas na twożenie nowego wątku
+                    FORUM::create_new_thread();
+
+                }else{
+                    echo "<span class='error'>Żeby zakładać nowe wątki musisz posiadać wyższą rangę.</span>";
+                }
+            }
+           
+           
+
+            if(!isset($_POST['post'])){
+
+                if($_SESSION['user_rank'] >= 3){
+                 // jeżeli wybrano kategorie pokaż listę wątków
+                    echo "<input type='button' value='Dodaj wątek' onClick=\" post( '" . this_url() . "', { post: 'add' } ); \" />";
+                }else{
+                    echo "Żeby zakładać nowe wątki musisz posiadać wyższą rangę.";
+                } 
+
+                FORUM::show_threads( $_GET['cat'], 0, 12); 
+            }
+            
         }  
     }
 }else{
