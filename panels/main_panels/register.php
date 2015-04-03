@@ -2,6 +2,7 @@
 
 	<?php
 		// Usuwanie z danych wprowadzonych przez użytkownika niepotrzebnych znaków
+	/*
 		if( isset($_POST['username']) ||
 			isset($_POST['password']) ||
 			isset($_POST['repassword']) ||
@@ -15,30 +16,34 @@
 			$register = new Register($username, $password, $repassword, $email);
 
 		}
+		*/
 	?>
 
-	<form action=<?php echo "'" . $GLOBALS['SUBDOMEN'] . "." . "index.php?ekran=" . $_GET['ekran'] . "'"; ?> method="POST">
+	<div id='jsRespond'></div>
+
+	
 		<table border='0 ' style='text-align: left;  margin: auto;'>		
 			<tr>
 				<td colspan="2" style='text-align: right'>Login</td>
-				<td><input type='text' placeholder="Twój login" name='username' class='input' /></td>
+				<td><input type='text' placeholder="Twój login" id='username' class='input' /></td>
 			</tr>
 			<tr>
 				<td colspan="2" style='text-align: right'>Adres e-mail</td>
-				<td><input type='email' placeholder="Twój adres e-mail" name='email' class='input' /></td>
+				<td><input type='email' placeholder="Twój adres e-mail" id='email' class='input' /></td>
 			</tr>	
 			<tr>
 				<td colspan="2" style='text-align: right'>Hasło</td>
-				<td><input type='password' placeholder="Twoje hasło" name='password' class='input' /></td>
+				<td><input type='password' placeholder="Twoje hasło" id='password' class='input' /></td>
 			</tr>
 			<tr>
 				<td colspan="2" style='text-align: right'>Powtórz hasło</td>
-				<td><input type='password' placeholder="Powtórzenie hasła" name='repassword' class='input' /></td>
+				<td><input type='password' placeholder="Powtórzenie hasła" id='repassword' class='input' /></td>
 			</tr>
 		</table>
 		
 		<br />
-			<input type="checkbox" name="terms" value="read">Zapoznalem się z <a href='terms.html' target="_blank" >regulaminem</a> i akceptuje go.<br /><br />
-			<input type='submit' value='Rejestracja'>
-	</form>
+			<input type="checkbox" id="terms" value="read">Zapoznalem się z <a href='terms.html' target="_blank" >regulaminem</a> i akceptuje go.<br /><br />
+			<input type='button' value='Rejestracja' class='input' id='guzik' onClick="tryToRegister( {username: $('#username').val(), email: $('#email').val(), password: $('#password').val(), repassword: $('#repassword').val(), terms: $('#terms').prop('checked'), subdomen: '<?=$GLOBALS['SUBDOMEN'] ?>' } )">
+			
+	
 </div>

@@ -22,6 +22,25 @@ function post(path, params, method) {
     form.submit();
 }
 
+function tryToRegister( fields ){
+    //username: $('#username').val(), 
+    //email: $('#email').val(), 
+    //password: $('#password').val(),
+    // race: $('#race').val()
+    //repassword: $('#repassword').val(), 
+    //terms: $('#terms').prop('checked')
+    var variables = "";
+    variables +=  "username=" + fields.username;
+    variables +=  "&" + "password=" + fields.password;
+    variables +=  "&" + "email=" + fields.email;
+    variables +=  "&" + "repassword=" + fields.repassword;
+    variables +=  "&" + "terms=" + fields.terms;
+    variables +=  "&" + "subdomen=" + fields.subdomen;
+
+    getAction( "register", "jsRespond", variables);
+
+}
+
 function resize (image, new_width, new_height) {
         mainCanvas = document.createElement("canvas");
         mainCanvas.width = new_width;
@@ -57,7 +76,7 @@ var xmlhttp;
 	  
 	xmlhttp.onreadystatechange=function(){
 	  if (xmlhttp.readyState==4 && xmlhttp.status==200){
-			document.getElementById(respons).innerHTML=xmlhttp.responseText;
+			$('#' + respons).html( xmlhttp.responseText );
 		}
 	  }
 	xmlhttp.open("GET","scripts/"+action+".php?"+variables,true);
