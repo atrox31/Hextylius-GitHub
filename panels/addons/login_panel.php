@@ -13,23 +13,39 @@
 			if ( (isset($_POST["username_"])) && (isset($_POST["password_"])) ) { // jezeli otrzyma dane do logowania
 
 			//TYMCZASOWO
-			$login = 
-			$pass = 
+			$nick = clear($_POST["username_"]);
+			$pass = clear(codepass($_GET['password_']));
 
-			$_SESSION['login'] = true;
-			$_SESSION['user_id'] = 1;
-			$_SESSION['user_rank'] = 3;
-			page_refresh();
+			$database = new db('fassh114_1');
+			if( $USER_DATA = $database -> get_data("users", "*", true, "`nick` = '{$nick}' AND `pass` = '{$pass}'")){
+				if( $USER_DATA['ban'] <= time()){
+					$_SESSION['login'] = true;
+					$_SESSION['user_id'] = $USER_DATA['id'];
+					$_SESSION['user_rank'] = $USER_DATA['rank'];
 
-		} else { // jezeli nie ma danych do logowania
+					$_SESSION['kind'] = $USER_DATA['kind'];
+					$_SESSION['nick'] = $USER_DATA['nick'];
+
+					page_refresh();
+				}else{
+					$_GET['error'] = "ban";
+				}
+				
+			}else{
+				$_GET['error'] = "true";
+			}
+
+			
+
+		}
 			echo "<center><div id='panel_logowania'>"
 				."<form action='{$GLOBALS['SUBDOMEN']}.index.php?ekran=news' method='post'>"
 				."Login: <input type='text' name='username_' class='input'></br>"
 				."Hasło: <input type='password' name='password_' class='input'></br>"
 				."<input type='submit' value='Zaloguj' class='input' id='guzik'>"
 				."</form>";
-			echo "Nie masz konta? <a onClick=\"window.location = '{$GLOBALS['SUBDOMEN']}.index.php?ekran=register'\">Zarejestruj się!</a><br /><a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=recorvery', {recorvery: 'recorvery'})\">Przypomnienie hasła</a>";
-		}
+			echo "Nie masz konta? <a onClick=\"window.location = '{$GLOBALS['SUBDOMEN']}.index.php?ekran=register'\">Zarejestruj się!</a><br /><a onClick=\"window.location = '{$GLOBALS['SUBDOMEN']}.index.php?ekran=recorvery'\">Przypomnienie hasła</a>";
+		
 	    
 	    if ( isset($_GET['error']) ) { 
 			if ($_GET['error']=='true') { 
