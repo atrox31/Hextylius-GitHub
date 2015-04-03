@@ -49,7 +49,7 @@
 
         <?php
                 // inplementacja silnika i przydatnych funkcji
-                require_once "scripts/core.php";
+                require_once "scripts/artCore.php";
                 
                  // tymczasowo
                 $GLOBALS["SUBDOMEN"] = "tibia";

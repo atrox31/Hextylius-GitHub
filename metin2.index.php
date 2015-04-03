@@ -1,5 +1,5 @@
 <?php	
-	$VERSION = '0.1.0 alpha';
+	$VERSION = '0.2.0 alpha';
 	session_start();
         error_reporting( error_reporting() & ~E_NOTICE );
         if (!isset($_SESSION["gamelogin"])) { $_SESSION["gamelogin"] = false; }
@@ -51,7 +51,7 @@
 
         <?php
             // inplementacja silnika i przydatnych funkcji
-        	require_once "scripts/core.php";
+        	require_once "scripts/artCore.php";
                 
             // tymczasowo
             $GLOBALS["SUBDOMEN"] = "metin2";

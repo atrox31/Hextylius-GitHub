@@ -13,6 +13,9 @@
 			if ( (isset($_POST["username_"])) && (isset($_POST["password_"])) ) { // jezeli otrzyma dane do logowania
 
 			//TYMCZASOWO
+			$login = 
+			$pass = 
+
 			$_SESSION['login'] = true;
 			$_SESSION['user_id'] = 1;
 			$_SESSION['user_rank'] = 3;
@@ -25,7 +28,7 @@
 				."Hasło: <input type='password' name='password_' class='input'></br>"
 				."<input type='submit' value='Zaloguj' class='input' id='guzik'>"
 				."</form>";
-			echo "Nie masz konta? <a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=register', {register: 'register'})\">Zarejestruj się!</a><br /><a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=recorvery', {recorvery: 'recorvery'})\">Przypomnienie hasła</a>";
+			echo "Nie masz konta? <a onClick=\"window.location = '{$GLOBALS['SUBDOMEN']}.index.php?ekran=register'\">Zarejestruj się!</a><br /><a onClick=\"post('{$GLOBALS['SUBDOMEN']}.index.php?ekran=recorvery', {recorvery: 'recorvery'})\">Przypomnienie hasła</a>";
 		}
 	    
 	    if ( isset($_GET['error']) ) { 

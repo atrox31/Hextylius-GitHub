@@ -28,10 +28,16 @@ if($_SESSION['login']){
     }else{
         if(isset($_GET['post'])){
             if(isset($_POST['text'])){
-                // jeżeli ktoś chce dodać wątek
-                $MESSAGE = nl2br(clear($_POST['text']));
-                $database -> insert_data("posts", "thread, author, time_add, content", "'{$_GET['post']}', '{$_SESSION['user_id']}', '" . time() . "', '{$MESSAGE}'");
-                page_refresh();
+                if($database -> get_data("forum_threads", "*", true, "`id` = '{$_GET['post']}'")){
+                        // jeżeli ktoś chce dodać wątek
+                    $MESSAGE = nl2br(clear($_POST['text']));
+                    $database -> insert_data("posts", "thread, author, time_add, content", "'{$_GET['post']}', '{$_SESSION['user_id']}', '" . time() . "', '{$MESSAGE}'");
+                    $database -> update_data("forum_threads", "`last_answer` = '" . time() . "'", "`id` = '{$_GET['post']}'");
+                    page_refresh();
+                }else{
+                    echo "<span class='error'>Żeby zakładać nowe wątki musisz posiadać wyższą rangę.</span>";
+                }
+                
             }
             FORUM::show_post( $_GET['post'] );
         }else{

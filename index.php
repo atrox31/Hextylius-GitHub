@@ -1,5 +1,5 @@
 ﻿<?php	
-	$VERSION = '0.1.0 alpha';
+	$VERSION = '0.2.0 alpha';
 	session_start();
         error_reporting( error_reporting() & ~E_NOTICE );
         if (!isset($_SESSION["gamelogin"])) { $_SESSION["gamelogin"] = false; }
