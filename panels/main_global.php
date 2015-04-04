@@ -1,7 +1,8 @@
 <?php
+
 	// zawsze nadawaj ekran
 	if (!isset($_GET['ekran'])) { header("Location: index.php?ekran=main"); };
-	
+
         // logika
         
 	// rysowanie menu gracza

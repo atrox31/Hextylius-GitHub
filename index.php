@@ -47,7 +47,7 @@
 
 	<?php
 	    // inplementacja silnika i przydatnych funkcji
-		require_once "scripts/core.php";
+		require "scripts/artCore.php";
 	        
 	    // rysowanie całego kontentu
 	    require 'panels/main_global.php';

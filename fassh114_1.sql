@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Czas generowania: 29 Mar 2015, 17:27
+-- Czas generowania: 03 Kwi 2015, 18:05
 -- Wersja serwera: 5.6.21
 -- Wersja PHP: 5.6.3
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `admin`
 --
 
+DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
 `id` int(11) NOT NULL,
   `login` varchar(512) COLLATE utf8_polish_ci NOT NULL,
@@ -45,6 +46,7 @@ INSERT INTO `admin` (`id`, `login`, `pass`) VALUES
 -- Struktura tabeli dla tabeli `forum_category`
 --
 
+DROP TABLE IF EXISTS `forum_category`;
 CREATE TABLE IF NOT EXISTS `forum_category` (
 `id` int(11) NOT NULL,
   `name` varchar(1024) COLLATE utf8_polish_ci NOT NULL
@@ -67,6 +69,7 @@ INSERT INTO `forum_category` (`id`, `name`) VALUES
 -- Struktura tabeli dla tabeli `forum_threads`
 --
 
+DROP TABLE IF EXISTS `forum_threads`;
 CREATE TABLE IF NOT EXISTS `forum_threads` (
 `id` int(11) NOT NULL,
   `author` int(11) NOT NULL,
@@ -74,14 +77,16 @@ CREATE TABLE IF NOT EXISTS `forum_threads` (
   `open` varchar(8) COLLATE utf8_polish_ci NOT NULL DEFAULT 'true',
   `name` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
   `category` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `forum_threads`
 --
 
 INSERT INTO `forum_threads` (`id`, `author`, `last_answer`, `open`, `name`, `category`) VALUES
-(1, 1, 234234, 'true', 'Moja pierwsza kategoria!', 1);
+(1, 1, 234234, 'true', 'Moja pierwsza kategoria!', 1),
+(3, 1, 1427904260, 'true', 'WÄ…tke numer dwa', 1),
+(4, 1, 1427904801, 'true', 'sdfsdfdsfdsf', 1);
 
 -- --------------------------------------------------------
 
@@ -89,6 +94,7 @@ INSERT INTO `forum_threads` (`id`, `author`, `last_answer`, `open`, `name`, `cat
 -- Struktura tabeli dla tabeli `news`
 --
 
+DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
 `id` int(11) NOT NULL,
   `kind` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
@@ -114,6 +120,7 @@ INSERT INTO `news` (`id`, `kind`, `title`, `content`, `date`, `author`, `image`)
 -- Struktura tabeli dla tabeli `pages`
 --
 
+DROP TABLE IF EXISTS `pages`;
 CREATE TABLE IF NOT EXISTS `pages` (
 `id` int(11) NOT NULL,
   `name` varchar(128) COLLATE utf8_polish_ci NOT NULL,
@@ -137,20 +144,21 @@ INSERT INTO `pages` (`id`, `name`, `kind`, `left_panel`, `right_panel`, `news_pe
 -- Struktura tabeli dla tabeli `posts`
 --
 
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
 `id` int(11) NOT NULL,
   `thread` int(11) NOT NULL,
   `author` int(11) NOT NULL,
   `time_add` int(11) NOT NULL,
   `content` varchar(5000) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `posts`
 --
 
 INSERT INTO `posts` (`id`, `thread`, `author`, `time_add`, `content`) VALUES
-(2, 1, 2, 4324345, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis nunc ex, eu dignissim nulla pulvinar sed. Sed et iaculis velit, ac vehicula purus. Sed malesuada, nisi quis temp'),
+(2, 1, 1, 4324345, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis nunc ex, eu dignissim nulla pulvinar sed. Sed et iaculis velit, ac vehicula purus. Sed malesuada, nisi quis temp'),
 (3, 1, 1, 43445345, 'fgdgdfgdfgdfg'),
 (4, 1, 1, 1427640595, 'axszcfevgrbthnjyuk, thjn, i.lo'),
 (5, 1, 1, 1427640630, 'axszcfevgrbthnjyuk, thjn, i.lo'),
@@ -160,7 +168,12 @@ INSERT INTO `posts` (`id`, `thread`, `author`, `time_add`, `content`) VALUES
 (9, 1, 1, 1427640891, 'dgfhjkhlj;k'';'),
 (10, 1, 1, 1427640894, 'dfgdjkl;'''),
 (11, 1, 1, 1427640898, 'ghjgfjghj\r\nfghfhg'),
-(12, 1, 1, 1427641035, 'fgddgdfhfdg hfgh fh \r\nasdas fdsaf\r\nsda fasd \r\ngfdg df\r\ng dfg');
+(12, 1, 1, 1427641035, 'fgddgdfhfdg hfgh fh \r\nasdas fdsaf\r\nsda fasd \r\ngfdg df\r\ng dfg'),
+(13, 1, 1, 1427902998, 'vvfgf'),
+(14, 0, 1, 1427903307, 'kiedy sspotkamy siÄ™ na zakrÄ™cie, co z nami bÄ™dzie Å›wiat rozpdzi siÄ™ niebezpiecznie, co z nami bedzie,, nawet jeÅ›li Å¼uycie dawno zna odpowiedÅº, moÅ¼e lepiej gdy nam tereaz nie cnie powie'),
+(15, 3, 1, 1427904260, 'forum_threadsforum_threadsforum_threadsforum_threadsforum_threads forum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threads forum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threads forum_threadsforum_threadsforum_threadsforum_threadsforum_threadsforum_threads'),
+(16, 4, 1, 1427904802, 'dsfsdfsdfsvds v d sd vsd vds fdsf dsf sdf sdf dsf sdf sdf sdfs'),
+(17, 1, 1, 1427904815, 'dfdfdf');
 
 -- --------------------------------------------------------
 
@@ -168,11 +181,12 @@ INSERT INTO `posts` (`id`, `thread`, `author`, `time_add`, `content`) VALUES
 -- Struktura tabeli dla tabeli `rank`
 --
 
+DROP TABLE IF EXISTS `rank`;
 CREATE TABLE IF NOT EXISTS `rank` (
 `id` int(11) NOT NULL,
   `name` varchar(256) COLLATE utf8_polish_ci NOT NULL,
   `color` varchar(8) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `rank`
@@ -180,7 +194,8 @@ CREATE TABLE IF NOT EXISTS `rank` (
 
 INSERT INTO `rank` (`id`, `name`, `color`) VALUES
 (1, 'n00b', 'DD2020'),
-(2, 'new but not noob', '20DD20');
+(2, 'new but not noob', '20DD20'),
+(3, 'not noob hahahahahazhahsdkdjgfekdh gyvdfhg asdv f', 'fadafa');
 
 -- --------------------------------------------------------
 
@@ -188,26 +203,30 @@ INSERT INTO `rank` (`id`, `name`, `color`) VALUES
 -- Struktura tabeli dla tabeli `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
 `id` int(11) NOT NULL,
   `nick` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
   `pass` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
+  `email` varchar(256) COLLATE utf8_polish_ci NOT NULL,
   `kind` varchar(128) COLLATE utf8_polish_ci NOT NULL,
   `desc` varchar(2048) COLLATE utf8_polish_ci NOT NULL,
   `avatar` varchar(256) COLLATE utf8_polish_ci NOT NULL DEFAULT 'avatar',
-  `rank` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+  `rank` int(11) NOT NULL DEFAULT '1',
+  `ban` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `users`
 --
 
-INSERT INTO `users` (`id`, `nick`, `pass`, `kind`, `desc`, `avatar`, `rank`) VALUES
-(1, 'atrox13', 'asdasd', 'minecraft', '', 'avatar', 1),
-(2, 'atrox13', 'asdasd', 'minecraft', '', 'avatar', 1),
-(3, 'atrox13', 'asdasd', 'minecraft', '', 'avatar', 1),
-(4, 'asdfdf', 'asdewq', 'minecraft', '', 'avatar', 1),
-(5, 'esfdsdf', 'asdasd', 'minecraft', '', 'avatar', 1);
+INSERT INTO `users` (`id`, `nick`, `pass`, `email`, `kind`, `desc`, `avatar`, `rank`, `ban`) VALUES
+(1, 'atrox13', 'ab2f7b2f628c429677b16a34633f22fdd7f24c7f', '', 'minecraft', '', 'avatar', 3, 0),
+(2, 'asdasd', 'ab2f7b2f628c429677b16a34633f22fdd7f24c7f', 'asdasd@gmail.com', 'minecraft', '', 'avatar', 1, 0),
+(3, 'asdasd', '92ce91b40fba1eafe1ea7d13987a83d6183ea413', 'atrox31@gmail.com', 'minecraft', '', 'avatar', 1, 0),
+(4, 'zxczxc', '84b0aad8bc393721e24c4047afd6436a4eaa4272', 'gosiaczek3614@wp.pl', 'minecraft', '', 'avatar', 1, 0),
+(5, 'azsxdc', '7df2f0e833cbcaaf4d5004d562600b9d1208603b', 'asdf@wp.pl', 'minecraft', '', 'avatar', 1, 0),
+(6, 'chujec', 'ab2f7b2f628c429677b16a34633f22fdd7f24c7f', 'asd@dg.pk', 'minecraft', '', 'avatar', 1, 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -279,7 +298,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT dla tabeli `forum_threads`
 --
 ALTER TABLE `forum_threads`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT dla tabeli `news`
 --
@@ -294,17 +313,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT dla tabeli `posts`
 --
 ALTER TABLE `posts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT dla tabeli `rank`
 --
 ALTER TABLE `rank`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT dla tabeli `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

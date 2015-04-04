@@ -6,18 +6,19 @@
  * OSTATNIA AKTUALIZACJA: 19-02-2015
  */
 	if($_SESSION['login']){
-		echo "Witaj Atrox.
+		echo "Witaj {$_SESSION['nick']}.
 			<br />
 			<input type='button' value='Wyloguj' onClick=\"post('" . this_url() . "', {wylogowanie: 'wylogowanie'})\"";
 	}else{
 			if ( (isset($_POST["username_"])) && (isset($_POST["password_"])) ) { // jezeli otrzyma dane do logowania
 
-			//TYMCZASOWO
 			$nick = clear($_POST["username_"]);
-			$pass = clear(codepass($_GET['password_']));
+			$pass = codepass($_POST['password_']);
 
 			$database = new db('fassh114_1');
-			if( $USER_DATA = $database -> get_data("users", "*", true, "`nick` = '{$nick}' AND `pass` = '{$pass}'")){
+			$USER_DATA = $database -> get_data("users", "*", true, "`nick` = '{$nick}' AND `pass` = '{$pass}'", true);
+
+			if( $USER_DATA['id'] != "" ){
 				if( $USER_DATA['ban'] <= time()){
 					$_SESSION['login'] = true;
 					$_SESSION['user_id'] = $USER_DATA['id'];

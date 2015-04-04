@@ -10,18 +10,20 @@ require "artCore.php";
 		$AVABLE_SOBDOMEN = array("minecraft", "metin2", "tibia");								
 		if(in_array($_GET['subdomen'], $AVABLE_SOBDOMEN)){
 			if ($_GET['username'] != ""){
-				if($database -> count_data('users', 'user_id', "`username` = '{$_GET['username']}'") <= 0) {
+				$_GET['username'] = clear($_GET['username']);
+				if($database -> count_data('users', 'id', "`nick` = '{$_GET['username']}'") <= 0) {
 					if (strlen($_GET['username']) >= 5 ) {			
-						if (filter_var($_GET['email'], FILTER_VALIDATE_EMAIL) !== false){			
-							if($database -> count_data('users', 'user_id', "`email` = '{$_GET['email']}'") <= 0) {
+						if (filter_var($_GET['email'], FILTER_VALIDATE_EMAIL) !== false){	
+							$_GET['email'] = clear($_GET['email']);
+							if($database -> count_data('users', 'id', "`email` = '{$_GET['email']}'") <= 0) {
 								if (strlen($_GET['password']) >= 6 ){
 									if ($_GET['password'] == $_GET['repassword'] ){
 										if ($_GET['terms'] == "true"){
 
-											$_GET['username'] = clear($_GET['username']);
+											
 									        $_GET['password'] = clear($_GET['password']);
 									        $_GET['repassword'] = clear($_GET['repassword']);
-									        $_GET['email'] = clear($_GET['email']);
+									        
 									        $_GET['subdomen'] = clear($_GET['subdomen']);
 
 											$db = new db("fassh114_1");
